@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Purpose: Demonstrate a deployable Camunda 8 service task consuming the Jev worker type. -->
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_Jev" targetNamespace="https://github.com/gbesse/camunda-jev-connector">
+  <bpmn:process id="jev_support_triage" isExecutable="true">
+    <bpmn:startEvent id="start"><bpmn:outgoing>to_decision</bpmn:outgoing></bpmn:startEvent>
+    <bpmn:sequenceFlow id="to_decision" sourceRef="start" targetRef="decide"/>
+    <bpmn:serviceTask id="decide" name="Classify support request">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.gbesse.jev:decision:1" retries="1"/>
+        <zeebe:ioMapping><zeebe:input source="support/triage" target="jevPack"/><zeebe:input source="= {text: ticketText}" target="jevState"/><zeebe:output source="=jev" target="jev"/></zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>to_decision</bpmn:incoming><bpmn:outgoing>to_end</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="to_end" sourceRef="decide" targetRef="end"/>
+    <bpmn:endEvent id="end"><bpmn:incoming>to_end</bpmn:incoming></bpmn:endEvent>
+  </bpmn:process>
+</bpmn:definitions>

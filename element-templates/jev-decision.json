@@ -1,0 +1,55 @@
+{
+  "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+  "name": "Jev decision",
+  "id": "io.gbesse.jev.decision.v1",
+  "version": 1,
+  "description": "Evaluate a worker-registered DecisionPack and expose its decision as jev.",
+  "appliesTo": [
+    "bpmn:Task"
+  ],
+  "elementType": {
+    "value": "bpmn:ServiceTask"
+  },
+  "properties": [
+    {
+      "type": "Hidden",
+      "value": "io.gbesse.jev:decision:1",
+      "binding": {
+        "type": "zeebe:taskDefinition:type"
+      }
+    },
+    {
+      "label": "Registered pack",
+      "type": "String",
+      "value": "support/triage",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "jevPack"
+      },
+      "constraints": {
+        "notEmpty": true
+      }
+    },
+    {
+      "label": "State",
+      "type": "String",
+      "feel": "required",
+      "value": "= {text: ticketText}",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "jevState"
+      },
+      "constraints": {
+        "notEmpty": true
+      }
+    },
+    {
+      "type": "Hidden",
+      "value": "jev",
+      "binding": {
+        "type": "zeebe:output",
+        "source": "=jev"
+      }
+    }
+  ]
+}

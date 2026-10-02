@@ -26,7 +26,11 @@ const worker = registerWorker(createBoundedClient(), { packs: { 'support/triage'
 // await worker.stopGracefully({ waitUpToMs: 10000 });
 ```
 
-Install the package from `github:gbesse/camunda-jev-connector#v0.1.0`; it is not published to npm.
+Install the package from `github:gbesse/camunda-jev-connector#v0.1.1`; it is not published to npm.
+
+## Shareable demo report
+
+Run `npm run demo:report` to capture this repository’s bundled example as one JSON object with the project purpose, version and complete demo output. The command fails if the demo fails, so the report is useful when sharing a reproducible first look or reporting unexpected behavior. The bundled demo’s data and safety boundaries still apply.
 
 ## Verification
 

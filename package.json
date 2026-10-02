@@ -1,6 +1,6 @@
 {
   "name": "@gbesse/camunda-jev-connector",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Camunda 8 decision worker, Modeler template and BPMN example using Jev.",
   "type": "module",
   "license": "MIT",
@@ -27,7 +27,8 @@
     "test": "node --test tests/*.test.mjs",
     "check": "node scripts/check.mjs",
     "typecheck": "tsc --noEmit --skipLibCheck --strict --target ES2022 --module NodeNext docs/public-api-types.mts",
-    "demo": "node examples/demo.mjs"
+    "demo": "node examples/demo.mjs",
+    "demo:report": "node examples/demo-report.mjs"
   },
   "dependencies": {
     "@camunda8/orchestration-cluster-api": "9.1.5",

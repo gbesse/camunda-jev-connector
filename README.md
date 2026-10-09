@@ -48,3 +48,7 @@ See [reuse and provenance](docs/reuse.md), [contributing](CONTRIBUTING.md) and [
 Host reference: [Camunda template input/output mappings](https://docs.camunda.io/docs/components/modeler/element-templates/template-properties/).
 
 [Recorded verification scope](docs/verification.md).
+
+## Contrôle d’adoption · Adoption check · Comprobación de adopción
+
+[Français : essayer un cas concret](examples/adoption-check.md) · [English: try a concrete case](examples/adoption-check.md) · [Español: pruebe un caso concreto](examples/adoption-check.md).

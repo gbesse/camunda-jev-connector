@@ -40,3 +40,15 @@ FR : adaptez une copie de la fixture locale à cette situation, puis vérifiez l
 EN: adapt a copy of the local fixture to this situation, then check the behavior described above. Values are illustrative, not measured Jev output.
 
 ES: adapte una copia de la fixture local a esta situación y compruebe el comportamiento descrito arriba. Los valores son ilustrativos, no resultados Jev medidos.
+
+## Second cas · Second case · Segundo caso
+
+```text
+job_key=42; delivery_count=2; downstream_side_effect=1
+```
+
+**FR :** Une nouvelle livraison du même job ne prouve pas une exécution unique des effets en aval. Définissez une clé d’idempotence côté consommateur avant un flux réel.
+
+**EN:** Redelivery of the same job does not prove downstream effects run once. Define a consumer-side idempotency key before using a real process.
+
+**ES:** La nueva entrega del mismo trabajo no garantiza que los efectos posteriores se ejecuten una sola vez. Defina una clave de idempotencia en el consumidor antes de usar un proceso real.

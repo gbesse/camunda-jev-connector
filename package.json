@@ -1,6 +1,6 @@
 {
   "name": "@gbesse/camunda-jev-connector",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Camunda 8 decision worker, Modeler template and BPMN example using Jev.",
   "type": "module",
   "license": "MIT",

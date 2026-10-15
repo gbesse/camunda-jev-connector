@@ -25,3 +25,16 @@ test('real SDK worker activates and completes a job through its HTTP adapter', {
  const result=await Promise.race([done,new Promise((_,reject)=>{const timer=setTimeout(()=>reject(Error('SDK worker did not complete: '+JSON.stringify(calls))),5000);timer.unref();})]);
  assert.equal(result.variables.jev.outcome,'billing');assert.equal(calls[0].body.type,JOB_TYPE);
 });
+
+test('diagnostic-hook failure cannot skip or duplicate the broker failure path',async()=>{
+ const j=job();await handler({provider:async()=>{throw Error('private provider diagnostic');},onError:async()=>{throw Error('broken observer');}})(j);
+ assert.equal(j.failed.length,1);assert.equal(j.completed.length,0);assert.doesNotMatch(j.failed[0].errorMessage,/private provider/);assert.match(j.failed[0].errorMessage,/FR.*EN.*ES/);
+});
+test('ambiguous failure command releases locally without throwing into SDK auto-failure',async()=>{
+ const j=job();let attempts=0;j.fail=()=>{attempts++;return new Promise(()=>{});};
+ await handler({provider:async()=>{throw Error('failure');},acknowledgementTimeoutMs:5,onError:()=>{}})(j);
+ assert.equal(attempts,1);assert.equal(j.ignored.length,1);assert.equal(j.completed.length,0);
+});
+test('invalid deadlines are rejected before a worker starts',()=>{
+ for(const timeoutMs of [NaN,0,-1,1.5])assert.throws(()=>handler({timeoutMs}),/invalid deadlines/);
+});

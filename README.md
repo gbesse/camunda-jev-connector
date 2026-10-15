@@ -52,3 +52,11 @@ Host reference: [Camunda template input/output mappings](https://docs.camunda.io
 ## Contrôle d’adoption · Adoption check · Comprobación de adopción
 
 [Français : essayer un cas concret](examples/adoption-check.md) · [English: try a concrete case](examples/adoption-check.md) · [Español: pruebe un caso concreto](examples/adoption-check.md).
+
+## Failure acknowledgement boundary / Limite d’acquittement / Límite de confirmación
+
+EN: Provider failures now use a fixed FR/EN/ES broker message; raw diagnostics stay in the configured local `onError` hook. A failed/timed-out diagnostic hook cannot prevent acknowledgement. If `fail` itself errors or times out, the handler calls local `ignore` instead of throwing into SDK automatic failure and potentially sending a second command. Completion uses the same best-effort diagnostic rule. This provides one command attempt per handler, not distributed exactly-once delivery: an ambiguous broker outcome may still be redelivered after its lease.
+
+FR : Un échec fournisseur utilise désormais un message broker fixe FR/EN/ES ; les détails bruts restent dans le hook local `onError` configuré. Un hook en échec/expiration ne bloque plus l’acquittement. Si `fail` échoue ou expire, le handler appelle `ignore` localement au lieu de déclencher par exception un second échec automatique du SDK. La completion applique la même règle de diagnostic. Cela borne les tentatives de commande par handler, sans garantie distribuée d’exécution unique : une issue broker ambiguë peut être redistribuée après le bail.
+
+ES: Fallos del proveedor usan un mensaje broker fijo FR/EN/ES; detalles originales permanecen en el hook local `onError` configurado. Un hook fallido/caducado no impide confirmar. Si `fail` falla o caduca, llama `ignore` local en lugar de lanzar una excepción que active un segundo fallo automático del SDK. Completion aplica la misma regla diagnóstica. Limita intentos de comando por handler, no garantiza entrega distribuida exactamente una vez: una respuesta ambigua puede redistribuirse tras el arrendamiento.
